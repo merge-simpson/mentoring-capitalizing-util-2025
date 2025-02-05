@@ -1,9 +1,9 @@
 package com.example.util
 
 import io.kotest.core.spec.style.FreeSpec
-import io.kotest.matchers.equals.shouldBeEqual
-import io.kotest.matchers.shouldBe
-import io.kotest.matchers.string.shouldStartWith
+import io.kotest.matchers.equals.*
+import io.kotest.matchers.*
+import io.kotest.matchers.string.*
 
 // 상속 불가: class (kotlin) -> public final class (java)
 // 상속 허용: open class (kotlin) -> public class (java)
@@ -38,9 +38,12 @@ class CapitalizingUtilTest : FreeSpec({
             }
         }
 
-        "Input _STARTING_WITH_ONE_UNDERSCORE" - {
-            "..." {
-                // ...
+        "Input _SURROUNDED_WITH_UNDERSCORES_" - {
+            val testString = "_EXAMPLE_STRING"
+            val result = CapitalizingUtil.capitalize(testString)
+
+            "처음과 끝의 언더스코어는 무시된다." {
+                result shouldBeEqual "Example String"
             }
         }
     }
