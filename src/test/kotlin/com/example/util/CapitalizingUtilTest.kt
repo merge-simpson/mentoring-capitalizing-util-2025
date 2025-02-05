@@ -1,5 +1,6 @@
 package com.example.util
 
+import io.kotest.assertions.asClue
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.equals.*
 import io.kotest.matchers.*
@@ -44,14 +45,15 @@ class CapitalizingUtilTest : FreeSpec({
             val result = CapitalizingUtil.capitalize(testString)
 
             "처음과 끝의 언더스코어는 무시된다." {
-                println("$result|")
-                println("$expected|")
-                println(result.equals(expected))
-                result shouldBeEqual expected
+                """
+                    |Result|Expected|
+                    |$result|$expected|""".trimIndent().asClue {
+                    result shouldBeEqual expected
+                }
             }
         }
 
-        "Input CONTINUOUS__UNDERSCORES___INCLUDED" - {
+        "Input CONTINUOUS__UNDERSCORES___BETWEEN_WORDS" - {
             val testString = "EXAMPLE__STRING"
             val result = CapitalizingUtil.capitalize(testString)
 
@@ -60,7 +62,7 @@ class CapitalizingUtilTest : FreeSpec({
             }
         }
 
-        "Input CONTINUOUS__UNDERSCORES___TAIL_______" - {
+        "Input CONTINUOUS__UNDERSCORES___TRAILING_______" - {
             val testString = "EXAMPLE__STRING_______"
             val result = CapitalizingUtil.capitalize(testString)
 
@@ -69,7 +71,7 @@ class CapitalizingUtilTest : FreeSpec({
             }
         }
 
-        "Input CONTINUOUS__UNDERSCORES___HEAD_______" - {
+        "Input _______LEADING_CONTINUOUS__UNDERSCORES" - {
             val testString = "_______EXAMPLE__STRING"
             val result = CapitalizingUtil.capitalize(testString)
 
