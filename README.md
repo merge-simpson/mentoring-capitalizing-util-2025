@@ -35,8 +35,8 @@ dependencies {
 ### Capitalizing Utility
 
 - UPPER_CASE_WITH_UNDERSCORES -> Correctly Capitalized
-- _SURROUNDED_WITH_UNDERSCORES_ -> 앞뒤 언더스코어는 무시됩니다.
-- CONTINUOUS__UNDERSCORES___INCLUDED -> 연속되었던 언더스코어는 단일 공백(' ')으로 바뀝니다.
+- \_SURROUNDED_WITH_UNDERSCORES\_ -> 앞뒤 언더스코어는 무시됩니다.
+- CONTINUOUS__UNDERSCORES___BETWEEN_WORDS -> 연속되었던 언더스코어는 단일 공백(' ')으로 바뀝니다.
 - CONTINUOUS__UNDERSCORES___TAIL_______ -> 마지막에 오는 언더스코어는 무시됩니다.
 - _______CONTINUOUS__UNDERSCORES___HEAD -> 처음에 오는 언더스코어는 무시됩니다.
 - ONLY_SINGLE_UNDERSCORE -> 빈 문자열이 됩니다.
