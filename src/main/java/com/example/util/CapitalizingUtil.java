@@ -12,16 +12,29 @@ public final class CapitalizingUtil {
 
         StringBuilder builder = new StringBuilder(origin.length());
         boolean isPreviousBlank = true;
+        int i = 0;
 
-        for (int i = 0; i < origin.length(); i++) {
+        for (char ch = origin.charAt(i); isWhitespace(ch); ch = origin.charAt(i)) {
+            i++;
+            if (i >= origin.length()) {
+                break;
+            }
+        }
+
+        for (; i < origin.length(); i++) {
             char ch = origin.charAt(i);
 
             // underscores, hyphens to blank
             if (ch == '_' || ch == '-' || Character.isWhitespace(ch)) {
-                if (isPreviousBlank) {
+                // ignore the last blank part
+                if (i + 1 >= origin.length()) {
                     continue;
                 }
-                builder.append(' ');
+                char nextChar = origin.charAt(i + 1);
+                if (nextChar != '_' && nextChar != '-' && !Character.isWhitespace(nextChar)) {
+                    builder.append(' ');
+                }
+
                 isPreviousBlank = true;
                 continue;
             }
@@ -36,6 +49,10 @@ public final class CapitalizingUtil {
         }
 
         return builder.toString();
+    }
+
+    private static boolean isWhitespace(char ch) {
+        return ch == '_' || ch == '-' || Character.isWhitespace(ch);
     }
 
     private static char toUpperCase(char ch) {
