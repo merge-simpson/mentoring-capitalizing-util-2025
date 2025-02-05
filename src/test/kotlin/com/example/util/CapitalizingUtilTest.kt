@@ -39,10 +39,68 @@ class CapitalizingUtilTest : FreeSpec({
         }
 
         "Input _SURROUNDED_WITH_UNDERSCORES_" - {
-            val testString = "_EXAMPLE_STRING"
+            val testString = "_EXAMPLE_STRING_"
+            val expected = "Example String"
             val result = CapitalizingUtil.capitalize(testString)
 
             "처음과 끝의 언더스코어는 무시된다." {
+                println("$result|")
+                println("$expected|")
+                println(result.equals(expected))
+                result shouldBeEqual expected
+            }
+        }
+
+        "Input CONTINUOUS__UNDERSCORES___INCLUDED" - {
+            val testString = "EXAMPLE__STRING"
+            val result = CapitalizingUtil.capitalize(testString)
+
+            "중간에 오는 연속 언더스코어는 단일 공백으로 바뀐다." {
+                result shouldBeEqual "Example String"
+            }
+        }
+
+        "Input CONTINUOUS__UNDERSCORES___TAIL_______" - {
+            val testString = "EXAMPLE__STRING_______"
+            val result = CapitalizingUtil.capitalize(testString)
+
+            "마지막에 오는 연속 언더스코어는 무시된다." {
+                result shouldBeEqual "Example String"
+            }
+        }
+
+        "Input CONTINUOUS__UNDERSCORES___HEAD_______" - {
+            val testString = "_______EXAMPLE__STRING"
+            val result = CapitalizingUtil.capitalize(testString)
+
+            "처음에 오는 연속 언더스코어는 무시된다." {
+                result shouldBeEqual "Example String"
+            }
+        }
+
+        "INPUT ONLY_SINGLE_UNDERSCORE" - {
+            val testString = "_"
+            val result = CapitalizingUtil.capitalize(testString)
+
+            "빈 문자열이 된다." {
+                result shouldBeEqual ""
+            }
+        }
+
+        "INPUT ONLY_CONTINUOUS_UNDERSCORES" - {
+            val testString = "___"
+            val result = CapitalizingUtil.capitalize(testString)
+
+            "빈 문자열이 된다." {
+                result shouldBeEqual ""
+            }
+        }
+
+        "INPUT Multiple blanks and mixed convention" - {
+            val testString = "   ---   ___   _-_   eXaMplE---   ___   ---   stRINg   ---   ___   -_-_-___   "
+            val result = CapitalizingUtil.capitalize(testString)
+
+            "연속적인 공백, 언더스코어, 하이픈은 모두 단일 공백으로 되며, 앞뒤에 오면 모두 생략된다." {
                 result shouldBeEqual "Example String"
             }
         }
